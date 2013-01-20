@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Scintilla Source Files">
+      <UniqueIdentifier>{a9754ce3-44cb-4092-82d8-2c2b1c038e22}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Scintilla227\src\AutoComplete.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\CallTip.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\CellBuffer.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\lexlib\CharacterSet.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\CharClassify.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\ContractionState.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\Decoration.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\Document.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\Editor.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\Indicator.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\KeyMap.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\LineMarker.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\PerLine.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\win32\PlatWin.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\PositionCache.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\RESearch.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\RunStyles.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\ScintillaBase.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\win32\ScintillaWin.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\Selection.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\Style.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\UniConversion.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\ViewStyle.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Scintilla227\src\XPM.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ElasticTabstopsEdit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ElasticTabstops.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Demo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ElasticTabstopsEdit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Demo.rc">
+      <Filter>Source Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
