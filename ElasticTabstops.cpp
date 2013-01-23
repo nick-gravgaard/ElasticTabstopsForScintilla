@@ -57,9 +57,9 @@ enum direction
 et_tabstop* grid_buffer = NULL;
 int grid_buffer_size = 0;
 
-// by default, tabstops are at least 40 pixels plus 16 pixels of padding
-#define MINIMUM_WIDTH_DEFAULT 40
-#define PADDING_WIDTH_DEFAULT 16
+// by default, tabstops are at least 32 pixels plus 12 pixels of padding
+#define MINIMUM_WIDTH_DEFAULT 32
+#define PADDING_WIDTH_DEFAULT 12
 
 int tab_width_minimum = MINIMUM_WIDTH_DEFAULT;
 int tab_width_padding = PADDING_WIDTH_DEFAULT;
