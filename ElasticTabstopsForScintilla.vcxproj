@@ -149,6 +149,9 @@
     <ClInclude Include="ElasticTabstopsEdit.h" />
     <ClInclude Include="Resource.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="buffer_contents.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

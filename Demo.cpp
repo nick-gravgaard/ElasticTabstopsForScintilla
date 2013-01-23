@@ -25,50 +25,20 @@ protected:
 	{
 		CDialog::OnInitDialog();
 
+		HMODULE hModule = GetModuleHandle(NULL);
+		HRSRC hRes = FindResource(hModule, MAKEINTRESOURCE(IDR_TEXTFILE), "BUFFER_CONTENTS");
+		HGLOBAL hMem = LoadResource(hModule, hRes);
+		DWORD size = SizeofResource(hModule, hRes);
+		char *res_text = (char*)LockResource(hMem);
+		char *text = (char*)malloc(size + 1);
+		memcpy(text, res_text, size);
+		text[size] = 0;
+		FreeResource(hMem);
+
 		m_edit.SubclassDlgItem(IDC_EDIT,this);
 		m_edit.Setup();
 		m_edit.SendMessage(SCI_SETWRAPMODE,1);
-		m_edit.SetText(
-		"/* Hopefully this program should demonstrate how elastic tabstops work.\t*/\n"
-		"/* Try inserting and deleting different parts of the text and watch as the tabstops move.\t*/\n"
-		"/* If you like this, please ask the writers of your text editor to implement it.\t*/\n"
-		"\n"
-		"#include <stdio.h>\n"
-		"\n"
-		"struct ipc_perm\n"
-		"{\n"
-		"\tkey_t\tkey;\n"
-		"\tushort\tuid;\t/* owner euid and egid\t*/\n"
-		"\tushort\tgid;\t/* group id\t*/\n"
-		"\tushort\tcuid;\t/* creator euid and egid\t*/\n"
-		"\tcell-missing\t\t/* for test purposes\t*/\n"
-		"\tushort\tmode;\t/* access modes\t*/\n"
-		"\tushort\tseq;\t/* sequence number\t*/\n"
-		"};\n"
-		"\n"
-		"int someDemoCode(\tint fred,\n"
-		"\tint wilma)\n"
-		"{\n"
-		"\tx();\t/* try making\t*/\n"
-		"\tprintf(\"hello!\\n\");\t/* this comment\t*/\n"
-		"\tdoSomethingComplicated();\t/* a bit longer\t*/\n"
-		"\tfor (i = start; i < end; ++i)\n"
-		"\t{\n"
-		"\t\tif (isPrime(i))\n"
-		"\t\t{\n"
-		"\t\t\t++numPrimes;\n"
-		"\t\t}\n"
-		"\t}\n"
-		"\treturn numPrimes;\n"
-		"}\n"
-		"\n"
-		"---- and now for something completely different: a table ----\n"
-		"\n"
-		"Title\tAuthor\tPublisher\tYear\n"
-		"Generation X\tDouglas Coupland\tAbacus\t1995\n"
-		"Informagic\tJean-Pierre Petit\tJohn Murray Ltd\t1982\n"
-		"The Cyberiad\tStanislaw Lem\tHarcourt Publishers Ltd\t1985\n"
-		"The Selfish Gene\tRichard Dawkins\tOxford University Press\t2006\n");
+		m_edit.SetText(text);
 
 		return TRUE;
 	}
