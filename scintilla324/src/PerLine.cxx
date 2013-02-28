@@ -501,3 +501,80 @@ int LineAnnotation::Lines(int line) const {
 	else
 		return 0;
 }
+
+LineTabstops::~LineTabstops() {
+	Init();
+}
+
+void LineTabstops::Init() {
+	for (int line = 0; line < tabstops.Length(); line++) {
+		delete tabstops[line];
+	}
+	tabstops.DeleteAll();
+}
+
+void LineTabstops::InsertLine(int line) {
+	if (tabstops.Length()) {
+		tabstops.EnsureLength(line);
+		tabstops.Insert(line, 0);
+	}
+}
+
+void LineTabstops::RemoveLine(int line) {
+	if (tabstops.Length() > line) {
+		delete tabstops[line];
+		tabstops.Delete(line);
+	}
+}
+
+bool LineTabstops::SetTabstops(int line, int *newTabstops, int numNewTabstops) {
+	tabstops.EnsureLength(line + 1);
+	if (!tabstops[line]) {
+		tabstops[line] = new TabstopList();
+	}
+
+	TabstopList *tl = tabstops[line];
+	if (tl) {
+		// Are the new tabstops the same as the old ones?
+		if (numNewTabstops == tl->Length()) {
+			bool same = true;
+			for (int i = 0; i < numNewTabstops; i++) {
+				if (tl->ValueAt(i) != newTabstops[i]) {
+					same = false;
+				}
+			}
+			if (same) {
+				return false;
+			}
+		}
+
+		// Resize the array of tabstops
+		if (numNewTabstops < tl->Length()) {
+			tl->DeleteRange(numNewTabstops, tl->Length() - numNewTabstops);
+		} else {
+			tl->EnsureLength(numNewTabstops);
+		}
+
+		// Set the new tabstop values
+		PLATFORM_ASSERT(tl->Length() == numNewTabstops);
+		for (int i = 0; i < numNewTabstops; i++) {
+			tl->SetValueAt(i, newTabstops[i]);
+		}
+	}
+	return true;
+}
+
+int LineTabstops::GetNextTabstop(int line, int x)
+{
+	if (line < tabstops.Length()) {
+		TabstopList *tl = tabstops[line];
+		if (tl) {
+			for (int i = 0; i < tl->Length(); i++) {
+				if ((*tl)[i] > x) {
+					return (*tl)[i];
+				}
+			}
+		}
+	}
+	return 0;
+}

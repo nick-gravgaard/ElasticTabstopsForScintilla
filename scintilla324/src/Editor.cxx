@@ -2073,6 +2073,14 @@ bool BadUTF(const char *s, int len, int &trailBytes) {
 	}
 }
 
+int NextTabstopPos(Document *pdoc, int line, int x, int tabWidth)
+{
+	int next = pdoc->GetTabstop(line, x);
+	if (next > 0)
+		return next;
+	return ((((x + 2) / tabWidth) + 1) * tabWidth);
+}
+
 /**
  * Fill in the LineLayout data for the given line.
  * Copy the given @a line and its styles from the document into local arrays.
@@ -2198,8 +2206,7 @@ void Editor::LayoutLine(int line, Surface *surface, ViewStyle &vstyle, LineLayou
 				if (vstyle.styles[ll->styles[charInLine]].visible) {
 					if (isControl) {
 						if (ll->chars[charInLine] == '\t') {
-							ll->positions[charInLine + 1] = 
-								((static_cast<int>((startsegx + 2) / tabWidth) + 1) * tabWidth) - startsegx;
+							ll->positions[charInLine + 1] = NextTabstopPos(pdoc, line, startsegx, tabWidth) - startsegx;
 						} else if (controlCharSymbol < 32) {
 							if (ctrlCharWidth[ll->chars[charInLine]] == 0) {
 								const char *ctrlChar = ControlCharacterString(ll->chars[charInLine]);
@@ -9366,7 +9373,11 @@ sptr_t Editor::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
 	case SCI_COUNTCHARACTERS:
 		return pdoc->CountCharacters(wParam, lParam);
 
-	default:
+	case SCI_SETTABSTOPS:
+		pdoc->SetTabstops(wParam, reinterpret_cast<int*>(lParam));
+		return 0l;
+
+  default:
 		return DefWndProc(iMessage, wParam, lParam);
 	}
 	//Platform::DebugPrintf("end wnd proc\n");

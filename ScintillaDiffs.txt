@@ -1,38 +1,40 @@
-diff -ru Scintilla227/include/Scintilla.h ElasticTabstopsForScintilla/Scintilla227/include/Scintilla.h
---- Scintilla227/include/Scintilla.h	2011-06-20 13:47:06.000000000 +0100
-+++ ElasticTabstopsForScintilla/Scintilla227/include/Scintilla.h	2011-06-26 16:52:09.601167600 +0100
-@@ -811,6 +811,7 @@
- #define SCI_MOVESELECTEDLINESDOWN 2621
- #define SCI_SETIDENTIFIER 2622
- #define SCI_GETIDENTIFIER 2623
-+#define SCI_SETTABSTOPS 2630
+diff -ru scintilla324/include/Scintilla.h ElasticTabstopsForScintilla/scintilla324/include/Scintilla.h
+--- scintilla324/include/Scintilla.h	Mon Jan 14 22:58:57 2013
++++ ElasticTabstopsForScintilla/scintilla324/include/Scintilla.h	Thu Feb 28 21:22:20 2013
+@@ -855,6 +855,7 @@
+ #define SCI_VCHOMEDISPLAYEXTEND 2653
+ #define SCI_GETCARETLINEVISIBLEALWAYS 2654
+ #define SCI_SETCARETLINEVISIBLEALWAYS 2655
++#define SCI_SETTABSTOPS 2660
  #define SCI_STARTRECORD 3001
  #define SCI_STOPRECORD 3002
  #define SCI_SETLEXER 4001
-diff -ru Scintilla227/src/Document.cxx ElasticTabstopsForScintilla/Scintilla227/src/Document.cxx
---- Scintilla227/src/Document.cxx	2011-06-20 13:47:06.000000000 +0100
-+++ ElasticTabstopsForScintilla/Scintilla227/src/Document.cxx	2011-06-26 17:07:41.108446800 +0100
-@@ -118,6 +118,7 @@
+diff -ru scintilla324/src/Document.cxx ElasticTabstopsForScintilla/scintilla324/src/Document.cxx
+--- scintilla324/src/Document.cxx	Mon Jan 14 22:58:58 2013
++++ ElasticTabstopsForScintilla/scintilla324/src/Document.cxx	Thu Feb 28 21:22:54 2013
+@@ -103,6 +103,7 @@
  	perLineData[ldState] = new LineState();
  	perLineData[ldMargin] = new LineAnnotation();
  	perLineData[ldAnnotation] = new LineAnnotation();
-+	perLineData[ldTabs] = new LineTabs();
++	perLineData[ldTabstops] = new LineTabstops();
  
  	cb.SetPerLine(this);
  
-@@ -2032,6 +2033,30 @@
+@@ -2066,6 +2067,30 @@
+ 			break;
+ 	}
  	return - 1;
- }
- 
-+void Document::SetTabstops(int line, int* tabs)
++}
++
++void Document::SetTabstops(int line, int *tabstops)
 +{
-+	int numTabs = 0;
-+	while (tabs[numTabs] != 0) {
-+		numTabs++;
++	int numTabstops = 0;
++	while (tabstops[numTabstops] != 0) {
++		numTabstops++;
 +	}
 +
-+	LineTabs* lt = static_cast<LineTabs*>(perLineData[ldTabs]);
-+	if (lt->SetTabs(line, tabs, numTabs)) {
++	LineTabstops *lt = static_cast<LineTabstops *>(perLineData[ldTabstops]);
++	if (lt->SetTabstops(line, tabstops, numTabstops)) {
 +		DocModification mh(SC_MOD_CHANGELINESTATE, 0, 0, 0, 0, line);
 +		NotifyModified(mh);
 +	}
@@ -40,46 +42,44 @@ diff -ru Scintilla227/src/Document.cxx ElasticTabstopsForScintilla/Scintilla227/
 +
 +int Document::GetTabstop(int line, int x)
 +{
-+	LineTabs* lt = static_cast<LineTabs*>(perLineData[ldTabs]);
++	LineTabstops *lt = static_cast<LineTabstops *>(perLineData[ldTabstops]);
 +	if (lt) {
-+		return lt->GetNextTab(line, x);
++		return lt->GetNextTabstop(line, x);
 +	} else {
 +		return 0;
 +  }
-+}
-+
+ }
+ 
  /**
-  * Implementation of RegexSearchBase for the default built-in regular expression engine
-  */
-diff -ru Scintilla227/src/Document.h ElasticTabstopsForScintilla/Scintilla227/src/Document.h
---- Scintilla227/src/Document.h	2011-06-20 13:47:06.000000000 +0100
-+++ ElasticTabstopsForScintilla/Scintilla227/src/Document.h	2011-06-26 17:06:01.876771000 +0100
+diff -ru scintilla324/src/Document.h ElasticTabstopsForScintilla/scintilla324/src/Document.h
+--- scintilla324/src/Document.h	Mon Jan 14 22:58:58 2013
++++ ElasticTabstopsForScintilla/scintilla324/src/Document.h	Thu Feb 28 21:23:04 2013
 @@ -224,7 +224,7 @@
  	int lenWatchers;
  
  	// ldSize is not real data - it is for dimensions and loops
 -	enum lineData { ldMarkers, ldLevels, ldState, ldMargin, ldAnnotation, ldSize };
-+	enum lineData { ldMarkers, ldLevels, ldState, ldMargin, ldAnnotation, ldTabs, ldSize };
++	enum lineData { ldMarkers, ldLevels, ldState, ldMargin, ldAnnotation, ldTabstops, ldSize };
  	PerLine *perLineData[ldSize];
  
  	bool matchesValid;
-@@ -410,6 +410,8 @@
+@@ -419,6 +419,8 @@
  	int ParaDown(int pos);
  	int IndentSize() { return actualIndentInChars; }
  	int BraceMatch(int position, int maxReStyle);
-+	void SetTabstops(int line, int* tabs);
++	void SetTabstops(int line, int *tabstops);
 +	int GetTabstop(int line, int x);
  
  private:
  	bool IsWordStartAt(int pos);
-diff -ru Scintilla227/src/Editor.cxx ElasticTabstopsForScintilla/Scintilla227/src/Editor.cxx
---- Scintilla227/src/Editor.cxx	2011-06-20 13:47:06.000000000 +0100
-+++ ElasticTabstopsForScintilla/Scintilla227/src/Editor.cxx	2011-06-26 17:04:42.063206000 +0100
-@@ -2080,6 +2080,14 @@
+diff -ru scintilla324/src/Editor.cxx ElasticTabstopsForScintilla/scintilla324/src/Editor.cxx
+--- scintilla324/src/Editor.cxx	Mon Jan 14 22:58:58 2013
++++ ElasticTabstopsForScintilla/scintilla324/src/Editor.cxx	Thu Feb 28 21:22:45 2013
+@@ -2073,6 +2073,14 @@
  	}
  }
  
-+int NextTabPos(Document *pdoc, int line, int x, int tabWidth)
++int NextTabstopPos(Document *pdoc, int line, int x, int tabWidth)
 +{
 +	int next = pdoc->GetTabstop(line, x);
 +	if (next > 0)
@@ -90,19 +90,19 @@ diff -ru Scintilla227/src/Editor.cxx ElasticTabstopsForScintilla/Scintilla227/sr
  /**
   * Fill in the LineLayout data for the given line.
   * Copy the given @a line and its styles from the document into local arrays.
-@@ -2212,8 +2220,7 @@
+@@ -2198,8 +2206,7 @@
  				if (vstyle.styles[ll->styles[charInLine]].visible) {
  					if (isControl) {
  						if (ll->chars[charInLine] == '\t') {
--							ll->positions[charInLine + 1] = ((((startsegx + 2) /
--							        tabWidth) + 1) * tabWidth) - startsegx;
-+							ll->positions[charInLine + 1] = NextTabPos(pdoc, line, startsegx, tabWidth) - startsegx;
+-							ll->positions[charInLine + 1] = 
+-								((static_cast<int>((startsegx + 2) / tabWidth) + 1) * tabWidth) - startsegx;
++							ll->positions[charInLine + 1] = NextTabstopPos(pdoc, line, startsegx, tabWidth) - startsegx;
  						} else if (controlCharSymbol < 32) {
  							if (ctrlCharWidth[ll->chars[charInLine]] == 0) {
  								const char *ctrlChar = ControlCharacterString(ll->chars[charInLine]);
-@@ -9141,7 +9148,11 @@
- 	case SCI_GETIDENTIFIER:
- 		return GetCtrlID();
+@@ -9366,7 +9373,11 @@
+ 	case SCI_COUNTCHARACTERS:
+ 		return pdoc->CountCharacters(wParam, lParam);
  
 -	default:
 +	case SCI_SETTABSTOPS:
@@ -113,52 +113,52 @@ diff -ru Scintilla227/src/Editor.cxx ElasticTabstopsForScintilla/Scintilla227/sr
  		return DefWndProc(iMessage, wParam, lParam);
  	}
  	//Platform::DebugPrintf("end wnd proc\n");
-diff -ru Scintilla227/src/PerLine.cxx ElasticTabstopsForScintilla/Scintilla227/src/PerLine.cxx
---- Scintilla227/src/PerLine.cxx	2011-06-20 13:47:06.000000000 +0100
-+++ ElasticTabstopsForScintilla/Scintilla227/src/PerLine.cxx	2011-06-26 17:10:55.906588600 +0100
-@@ -489,3 +489,80 @@
+diff -ru scintilla324/src/PerLine.cxx ElasticTabstopsForScintilla/scintilla324/src/PerLine.cxx
+--- scintilla324/src/PerLine.cxx	Mon Jan 14 22:58:58 2013
++++ ElasticTabstopsForScintilla/scintilla324/src/PerLine.cxx	Thu Feb 28 21:22:35 2013
+@@ -501,3 +501,80 @@
  	else
  		return 0;
  }
 +
-+LineTabs::~LineTabs() {
++LineTabstops::~LineTabstops() {
 +	Init();
 +}
 +
-+void LineTabs::Init() {
-+	for (int line = 0; line < tabs.Length(); line++) {
-+		delete tabs[line];
++void LineTabstops::Init() {
++	for (int line = 0; line < tabstops.Length(); line++) {
++		delete tabstops[line];
 +	}
-+	tabs.DeleteAll();
++	tabstops.DeleteAll();
 +}
 +
-+void LineTabs::InsertLine(int line) {
-+	if (tabs.Length()) {
-+		tabs.EnsureLength(line);
-+		tabs.Insert(line, 0);
-+	}
-+}
-+
-+void LineTabs::RemoveLine(int line) {
-+	if (tabs.Length() > line) {
-+		delete tabs[line];
-+		tabs.Delete(line);
++void LineTabstops::InsertLine(int line) {
++	if (tabstops.Length()) {
++		tabstops.EnsureLength(line);
++		tabstops.Insert(line, 0);
 +	}
 +}
 +
-+bool LineTabs::SetTabs(int line, int* tabStops, int numTabs) {
-+	tabs.EnsureLength(line + 1);
-+	if (!tabs[line]) {
-+		tabs[line] = new TabList();
++void LineTabstops::RemoveLine(int line) {
++	if (tabstops.Length() > line) {
++		delete tabstops[line];
++		tabstops.Delete(line);
++	}
++}
++
++bool LineTabstops::SetTabstops(int line, int *newTabstops, int numNewTabstops) {
++	tabstops.EnsureLength(line + 1);
++	if (!tabstops[line]) {
++		tabstops[line] = new TabstopList();
 +	}
 +
-+	TabList* tl = tabs[line];
++	TabstopList *tl = tabstops[line];
 +	if (tl) {
-+		// Are the new tabs the same as the old ones?
-+		if (numTabs == tl->Length()) {
++		// Are the new tabstops the same as the old ones?
++		if (numNewTabstops == tl->Length()) {
 +			bool same = true;
-+			for (int i = 0; i < numTabs; i++) {
-+				if (tl->ValueAt(i) != tabStops[i]) {
++			for (int i = 0; i < numNewTabstops; i++) {
++				if (tl->ValueAt(i) != newTabstops[i]) {
 +					same = false;
 +				}
 +			}
@@ -167,26 +167,26 @@ diff -ru Scintilla227/src/PerLine.cxx ElasticTabstopsForScintilla/Scintilla227/s
 +			}
 +		}
 +
-+		// Resize the array of tabs
-+		if (numTabs < tl->Length()) {
-+			tl->DeleteRange(numTabs, tl->Length() - numTabs);
++		// Resize the array of tabstops
++		if (numNewTabstops < tl->Length()) {
++			tl->DeleteRange(numNewTabstops, tl->Length() - numNewTabstops);
 +		} else {
-+			tl->EnsureLength(numTabs);
++			tl->EnsureLength(numNewTabstops);
 +		}
 +
-+		// Set the new tab values
-+		PLATFORM_ASSERT(tl->Length() == numTabs);
-+		for (int i = 0; i < numTabs; i++) {
-+			tl->SetValueAt(i, tabStops[i]);
++		// Set the new tabstop values
++		PLATFORM_ASSERT(tl->Length() == numNewTabstops);
++		for (int i = 0; i < numNewTabstops; i++) {
++			tl->SetValueAt(i, newTabstops[i]);
 +		}
 +	}
 +	return true;
 +}
 +
-+int LineTabs::GetNextTab(int line, int x)
++int LineTabstops::GetNextTabstop(int line, int x)
 +{
-+	if (line < tabs.Length()) {
-+		TabList* tl = tabs[line];
++	if (line < tabstops.Length()) {
++		TabstopList *tl = tabstops[line];
 +		if (tl) {
 +			for (int i = 0; i < tl->Length(); i++) {
 +				if ((*tl)[i] > x) {
@@ -197,30 +197,29 @@ diff -ru Scintilla227/src/PerLine.cxx ElasticTabstopsForScintilla/Scintilla227/s
 +	}
 +	return 0;
 +}
-diff -ru Scintilla227/src/PerLine.h ElasticTabstopsForScintilla/Scintilla227/src/PerLine.h
---- Scintilla227/src/PerLine.h	2011-06-20 13:47:06.000000000 +0100
-+++ ElasticTabstopsForScintilla/Scintilla227/src/PerLine.h	2011-06-26 17:08:51.963499400 +0100
-@@ -113,6 +113,22 @@
+diff -ru scintilla324/src/PerLine.h ElasticTabstopsForScintilla/scintilla324/src/PerLine.h
+--- scintilla324/src/PerLine.h	Mon Jan 14 22:58:58 2013
++++ ElasticTabstopsForScintilla/scintilla324/src/PerLine.h	Thu Feb 28 21:23:16 2013
+@@ -114,6 +114,22 @@
  	int Lines(int line) const;
  };
  
-+typedef SplitVector<int> TabList;
++typedef SplitVector<int> TabstopList;
 +
-+class LineTabs : public PerLine {
-+	SplitVector<TabList *> tabs;
++class LineTabstops : public PerLine {
++	SplitVector<TabstopList *> tabstops;
 +public:
-+	LineTabs() {
++	LineTabstops() {
 +	}
-+	virtual ~LineTabs();
++	virtual ~LineTabstops();
 +	virtual void Init();
 +	virtual void InsertLine(int line);
 +	virtual void RemoveLine(int line);
 +
-+	bool SetTabs(int line, int *tabStops, int numTabs);
-+	int GetNextTab(int line, int x);
++	bool SetTabstops(int line, int *tabstops, int numTabstops);
++	int GetNextTabstop(int line, int x);
 +};
 +
  #ifdef SCI_NAMESPACE
  }
  #endif
-

@@ -224,7 +224,7 @@ private:
 	int lenWatchers;
 
 	// ldSize is not real data - it is for dimensions and loops
-	enum lineData { ldMarkers, ldLevels, ldState, ldMargin, ldAnnotation, ldSize };
+	enum lineData { ldMarkers, ldLevels, ldState, ldMargin, ldAnnotation, ldTabstops, ldSize };
 	PerLine *perLineData[ldSize];
 
 	bool matchesValid;
@@ -419,6 +419,8 @@ public:
 	int ParaDown(int pos);
 	int IndentSize() { return actualIndentInChars; }
 	int BraceMatch(int position, int maxReStyle);
+	void SetTabstops(int line, int *tabstops);
+	int GetTabstop(int line, int x);
 
 private:
 	bool IsWordStartAt(int pos);

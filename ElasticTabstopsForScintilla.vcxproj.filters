@@ -14,76 +14,376 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Scintilla227\src\AutoComplete.cxx">
+    <ClCompile Include="scintilla324\lexers\LexA68k.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\CallTip.cxx">
+    <ClCompile Include="scintilla324\lexers\LexAbaqus.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\CellBuffer.cxx">
+    <ClCompile Include="scintilla324\lexers\LexAda.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\lexlib\CharacterSet.cxx">
+    <ClCompile Include="scintilla324\lexers\LexAPDL.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\CharClassify.cxx">
+    <ClCompile Include="scintilla324\lexers\LexAsm.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\ContractionState.cxx">
+    <ClCompile Include="scintilla324\lexers\LexAsn1.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\Decoration.cxx">
+    <ClCompile Include="scintilla324\lexers\LexASY.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\Document.cxx">
+    <ClCompile Include="scintilla324\lexers\LexAU3.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\Editor.cxx">
+    <ClCompile Include="scintilla324\lexers\LexAVE.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\Indicator.cxx">
+    <ClCompile Include="scintilla324\lexers\LexAVS.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\KeyMap.cxx">
+    <ClCompile Include="scintilla324\lexers\LexBaan.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\LineMarker.cxx">
+    <ClCompile Include="scintilla324\lexers\LexBash.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\PerLine.cxx">
+    <ClCompile Include="scintilla324\lexers\LexBasic.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\win32\PlatWin.cxx">
+    <ClCompile Include="scintilla324\lexers\LexBullant.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\PositionCache.cxx">
+    <ClCompile Include="scintilla324\lexers\LexCaml.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\RESearch.cxx">
+    <ClCompile Include="scintilla324\lexers\LexCLW.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\RunStyles.cxx">
+    <ClCompile Include="scintilla324\lexers\LexCmake.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\ScintillaBase.cxx">
+    <ClCompile Include="scintilla324\lexers\LexCOBOL.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\win32\ScintillaWin.cxx">
+    <ClCompile Include="scintilla324\lexers\LexCoffeeScript.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\Selection.cxx">
+    <ClCompile Include="scintilla324\lexers\LexConf.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\Style.cxx">
+    <ClCompile Include="scintilla324\lexers\LexCPP.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\UniConversion.cxx">
+    <ClCompile Include="scintilla324\lexers\LexCrontab.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\ViewStyle.cxx">
+    <ClCompile Include="scintilla324\lexers\LexCsound.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Scintilla227\src\XPM.cxx">
+    <ClCompile Include="scintilla324\lexers\LexCSS.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexD.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexECL.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexEiffel.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexErlang.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexEScript.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexFlagship.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexForth.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexFortran.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexGAP.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexGui4Cli.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexHaskell.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexHTML.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexInno.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexKix.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexLaTeX.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexLisp.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexLout.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexLua.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexMagik.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexMarkdown.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexMatlab.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexMetapost.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexMMIXAL.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexModula.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexMPT.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexMSSQL.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexMySQL.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexNimrod.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexNsis.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexOpal.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexOScript.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexOthers.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexPascal.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexPB.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexPerl.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexPLM.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexPO.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexPOV.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexPowerPro.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexPowerShell.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexProgress.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexPS.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexPython.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexR.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexRebol.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexRuby.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexScriptol.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexSmalltalk.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexSML.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexSorcus.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexSpecman.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexSpice.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexSQL.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexTACL.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexTADS3.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexTAL.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexTCL.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexTCMD.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexTeX.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexTxt2tags.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexVB.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexVerilog.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexVHDL.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexVisualProlog.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexers\LexYAML.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexlib\Accessor.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexlib\CharacterSet.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexlib\LexerBase.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexlib\LexerModule.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexlib\LexerNoExceptions.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexlib\LexerSimple.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexlib\PropSetSimple.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexlib\StyleContext.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\lexlib\WordList.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\AutoComplete.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\CallTip.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\Catalogue.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\CellBuffer.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\CharClassify.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\ContractionState.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\Decoration.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\Document.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\Editor.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\ExternalLexer.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\Indicator.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\KeyMap.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\LineMarker.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\PerLine.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\PositionCache.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\RESearch.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\RunStyles.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\ScintillaBase.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\Selection.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\Style.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\UniConversion.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\ViewStyle.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\src\XPM.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\win32\CheckD2D.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\win32\PlatWin.cxx">
+      <Filter>Scintilla Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scintilla324\win32\ScintillaWin.cxx">
       <Filter>Scintilla Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ElasticTabstopsEdit.cpp">

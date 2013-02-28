@@ -103,6 +103,7 @@ Document::Document() {
 	perLineData[ldState] = new LineState();
 	perLineData[ldMargin] = new LineAnnotation();
 	perLineData[ldAnnotation] = new LineAnnotation();
+	perLineData[ldTabstops] = new LineTabstops();
 
 	cb.SetPerLine(this);
 
@@ -2066,6 +2067,30 @@ int Document::BraceMatch(int position, int /*maxReStyle*/) {
 			break;
 	}
 	return - 1;
+}
+
+void Document::SetTabstops(int line, int *tabstops)
+{
+	int numTabstops = 0;
+	while (tabstops[numTabstops] != 0) {
+		numTabstops++;
+	}
+
+	LineTabstops *lt = static_cast<LineTabstops *>(perLineData[ldTabstops]);
+	if (lt->SetTabstops(line, tabstops, numTabstops)) {
+		DocModification mh(SC_MOD_CHANGELINESTATE, 0, 0, 0, 0, line);
+		NotifyModified(mh);
+	}
+}
+
+int Document::GetTabstop(int line, int x)
+{
+	LineTabstops *lt = static_cast<LineTabstops *>(perLineData[ldTabstops]);
+	if (lt) {
+		return lt->GetNextTabstop(line, x);
+	} else {
+		return 0;
+  }
 }
 
 /**
