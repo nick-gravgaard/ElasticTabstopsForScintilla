@@ -1,7 +1,12 @@
 // Port of elastic tabstops Gedit plugin to Scintilla
 
 #define VC_EXTRALEAN
-#define _WIN32_WINNT 0x0500
+#undef _WIN32_WINNT
+#define _WIN32_WINNT 0x0501
+#undef WINVER
+#define WINVER 0x0501
+#define NTDDI_VERSION 0x05010300
+
 #include <afxwin.h>
 
 #include <malloc.h>
@@ -72,7 +77,9 @@ int get_text_width(sptr_t edit, int start, int end)
 	range.lpstrText = (char*)_alloca(end-start+1);
 	call_edit(edit,SCI_GETTEXTRANGE,0,(sptr_t)&range);
 
-	return call_edit(edit,SCI_TEXTWIDTH,0,(LONG_PTR)range.lpstrText);
+	LONG_PTR style = call_edit(edit, SCI_GETSTYLEAT, (LONG_PTR)range.lpstrText,0);
+
+	return call_edit(edit,SCI_TEXTWIDTH,style,(LONG_PTR)range.lpstrText);
 }
 
 int calc_tab_width(int text_width_in_tab)

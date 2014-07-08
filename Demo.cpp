@@ -1,7 +1,12 @@
 // Elastic tabstops for Scintilla demo application
 
 #define VC_EXTRALEAN
-#define _WIN32_WINNT 0x0500
+#undef _WIN32_WINNT
+#define _WIN32_WINNT 0x0501
+#undef WINVER
+#define WINVER 0x0501
+#define NTDDI_VERSION 0x05010300
+
 #include <afxwin.h>
 
 #include "ElasticTabstopsEdit.h"
@@ -26,7 +31,7 @@ protected:
 		CDialog::OnInitDialog();
 
 		HMODULE hModule = GetModuleHandle(NULL);
-		HRSRC hRes = FindResource(hModule, MAKEINTRESOURCE(IDR_TEXTFILE), "BUFFER_CONTENTS");
+		HRSRC hRes = FindResource(hModule, MAKEINTRESOURCE(IDR_TEXTFILE), L"BUFFER_CONTENTS");
 		HGLOBAL hMem = LoadResource(hModule, hRes);
 		DWORD size = SizeofResource(hModule, hRes);
 		char *res_text = (char*)LockResource(hMem);

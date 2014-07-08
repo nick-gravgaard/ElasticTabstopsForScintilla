@@ -1,7 +1,12 @@
 // Scintilla derived class implementing elastic tabstops
 
 #define VC_EXTRALEAN
-#define _WIN32_WINNT 0x0500
+#undef _WIN32_WINNT
+#define _WIN32_WINNT 0x0501
+#undef WINVER
+#define WINVER 0x0501
+#define NTDDI_VERSION 0x05010300
+
 #include <afxwin.h>
 
 #include "ElasticTabstopsEdit.h"
