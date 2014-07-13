@@ -5,6 +5,9 @@
 // Copyright 1998-2009 by Neil Hodgson <neilh@scintilla.org>
 // The License.txt file describes the conditions under which this software may be distributed.
 
+#include <vector>
+using std::vector;
+
 #ifndef PERLINE_H
 #define PERLINE_H
 
@@ -112,7 +115,7 @@ public:
 	int Lines(int line) const;
 };
 
-typedef SplitVector<int> TabstopList;
+typedef std::vector<int> TabstopList;
 
 class LineTabstops : public PerLine {
 	SplitVector<TabstopList *> tabstops;
@@ -123,9 +126,9 @@ public:
 	virtual void Init();
 	virtual void InsertLine(int line);
 	virtual void RemoveLine(int line);
+
 	bool AddTabstops(int line, int newTabstops[], int numNewTabstops);
 	bool ClearTabstops(int line);
-
 	bool SetTabstops(int line, int *tabstops, int numTabstops);
 	int GetNextTabstop(int line, int x);
 };
