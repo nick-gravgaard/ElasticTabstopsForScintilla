@@ -252,7 +252,7 @@ void Editor::SetTabstops(int line, int *tabstops)
 	LineTabstops *lt = static_cast<LineTabstops *>(ldTabstops);
 	if (lt->SetTabstops(line, tabstops, numTabstops)) {
 		DocModification mh(SC_MOD_CHANGELINESTATE, 0, 0, 0, 0, line);
-		pdoc->NotifyModified(mh);
+		NotifyModified(pdoc, mh, NULL);
 	}
 }
 
