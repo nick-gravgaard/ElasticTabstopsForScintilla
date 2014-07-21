@@ -40,9 +40,9 @@ protected:
 		text[size] = 0;
 		FreeResource(hMem);
 
-		m_edit.SubclassDlgItem(IDC_EDIT,this);
+		m_edit.SubclassDlgItem(IDC_EDIT, this);
 		m_edit.Setup();
-		m_edit.SendMessage(SCI_SETWRAPMODE,1);
+		m_edit.SendMessage(SCI_SETWRAPMODE, 1);
 		m_edit.SetText(text);
 
 		return TRUE;

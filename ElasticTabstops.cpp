@@ -19,25 +19,25 @@ extern "C" sptr_t __stdcall Scintilla_DirectFunction(sptr_t, UINT, uptr_t, sptr_
 
 LONG_PTR call_edit(sptr_t edit, UINT msg, DWORD wp = 0, LONG_PTR lp = 0)
 {
-	return Scintilla_DirectFunction(edit,msg,wp,lp);
+	return Scintilla_DirectFunction(edit, msg, wp, lp);
 }
 
 int get_line_start(sptr_t edit, int pos)
 {
-	int line = call_edit(edit,SCI_LINEFROMPOSITION,pos);
-	return call_edit(edit,SCI_POSITIONFROMLINE,line);
+	int line = call_edit(edit, SCI_LINEFROMPOSITION, pos);
+	return call_edit(edit, SCI_POSITIONFROMLINE, line);
 }
 
 int get_line_end(sptr_t edit, int pos)
 {
-	int line = call_edit(edit,SCI_LINEFROMPOSITION,pos);
-	return call_edit(edit,SCI_GETLINEENDPOSITION,line);
+	int line = call_edit(edit, SCI_LINEFROMPOSITION, pos);
+	return call_edit(edit, SCI_GETLINEENDPOSITION, line);
 }
 
 bool is_line_end(sptr_t edit, int pos)
 {
-	int line = call_edit(edit,SCI_LINEFROMPOSITION,pos);
-	int end_pos = call_edit(edit,SCI_GETLINEENDPOSITION,line);
+	int line = call_edit(edit, SCI_LINEFROMPOSITION, pos);
+	int end_pos = call_edit(edit, SCI_GETLINEENDPOSITION, line);
 	return (pos == end_pos);
 }
 
@@ -74,12 +74,12 @@ int get_text_width(sptr_t edit, int start, int end)
 	TextRange range;
 	range.chrg.cpMin = start;
 	range.chrg.cpMax = end;
-	range.lpstrText = (char*)_alloca(end-start+1);
-	call_edit(edit,SCI_GETTEXTRANGE,0,(sptr_t)&range);
+	range.lpstrText = (char*)_alloca(end-start + 1);
+	call_edit(edit, SCI_GETTEXTRANGE, 0, (sptr_t)&range);
 
-	LONG_PTR style = call_edit(edit, SCI_GETSTYLEAT, (LONG_PTR)range.lpstrText,0);
+	LONG_PTR style = call_edit(edit, SCI_GETSTYLEAT, (LONG_PTR)range.lpstrText, 0);
 
-	return call_edit(edit,SCI_TEXTWIDTH,style,(LONG_PTR)range.lpstrText);
+	return call_edit(edit, SCI_TEXTWIDTH, style, (LONG_PTR)range.lpstrText);
 }
 
 int calc_tab_width(int text_width_in_tab)
@@ -93,10 +93,10 @@ int calc_tab_width(int text_width_in_tab)
 
 bool change_line(sptr_t edit, int& location, direction which_dir)
 {
-	int line = call_edit(edit,SCI_LINEFROMPOSITION,location);
+	int line = call_edit(edit, SCI_LINEFROMPOSITION, location);
 	if (which_dir == FORWARDS)
 	{
-		location = call_edit(edit,SCI_POSITIONFROMLINE,line+1);
+		location = call_edit(edit, SCI_POSITIONFROMLINE, line + 1);
 	}
 	else
 	{
@@ -104,7 +104,7 @@ bool change_line(sptr_t edit, int& location, direction which_dir)
 		{
 			return false;
 		}
-		location = call_edit(edit,SCI_POSITIONFROMLINE,line-1);
+		location = call_edit(edit, SCI_POSITIONFROMLINE, line-1);
 	}
 	return (location >= 0);
 }
@@ -115,14 +115,14 @@ int get_block_boundary(sptr_t edit, int& location, direction which_dir)
 	int max_tabs = 0;
 	bool orig_line = true;
 
-	location = get_line_start(edit,location);
+	location = get_line_start(edit, location);
 	do
 	{
 		int tabs_on_line = 0;
 
 		current_pos = location;
-		unsigned char current_char = (unsigned char)call_edit(edit,SCI_GETCHARAT,current_pos);
-		bool current_char_ends_line = is_line_end(edit,current_pos);
+		unsigned char current_char = (unsigned char)call_edit(edit, SCI_GETCHARAT, current_pos);
+		bool current_char_ends_line = is_line_end(edit, current_pos);
 
 		while (current_char != '\0' && !current_char_ends_line)
 		{
@@ -134,9 +134,9 @@ int get_block_boundary(sptr_t edit, int& location, direction which_dir)
 					max_tabs = tabs_on_line;
 				}
 			}
-			current_pos = call_edit(edit,SCI_POSITIONAFTER,current_pos);
-			current_char = (unsigned char)call_edit(edit,SCI_GETCHARAT,current_pos);
-			current_char_ends_line = is_line_end(edit,current_pos);
+			current_pos = call_edit(edit, SCI_POSITIONAFTER, current_pos);
+			current_char = (unsigned char)call_edit(edit, SCI_GETCHARAT, current_pos);
+			current_char_ends_line = is_line_end(edit, current_pos);
 		}
 		if (tabs_on_line == 0 && !orig_line)
 		{
@@ -144,19 +144,19 @@ int get_block_boundary(sptr_t edit, int& location, direction which_dir)
 		}
 		orig_line = false;
 	}
-	while (change_line(edit,location,which_dir));
+	while (change_line(edit, location, which_dir));
 	return max_tabs;
 }
 
 int get_nof_tabs_between(sptr_t edit, int start, int end)
 {
-	int current_pos = get_line_start(edit,start);
+	int current_pos = get_line_start(edit, start);
 	int max_tabs = 0;
 
 	do
 	{
-		unsigned char current_char = (unsigned char)call_edit(edit,SCI_GETCHARAT,current_pos);
-		bool current_char_ends_line = is_line_end(edit,current_pos);
+		unsigned char current_char = (unsigned char)call_edit(edit, SCI_GETCHARAT, current_pos);
+		bool current_char_ends_line = is_line_end(edit, current_pos);
 
 		int tabs_on_line = 0;
 		while (current_char != '\0' && !current_char_ends_line)
@@ -169,12 +169,12 @@ int get_nof_tabs_between(sptr_t edit, int start, int end)
 					max_tabs = tabs_on_line;
 				}
 			}
-			current_pos = call_edit(edit,SCI_POSITIONAFTER,current_pos);
-			current_char = (unsigned char)call_edit(edit,SCI_GETCHARAT,current_pos);
-			current_char_ends_line = is_line_end(edit,current_pos);
+			current_pos = call_edit(edit, SCI_POSITIONAFTER, current_pos);
+			current_char = (unsigned char)call_edit(edit, SCI_GETCHARAT, current_pos);
+			current_char_ends_line = is_line_end(edit, current_pos);
 		}
 	}
-	while (change_line(edit,current_pos,FORWARDS) && current_pos < end);
+	while (change_line(edit, current_pos, FORWARDS) && current_pos < end);
 	return max_tabs;
 }
 
@@ -182,12 +182,12 @@ void stretch_tabstops(sptr_t edit, int block_start_linenum, int block_nof_lines,
 {
 	int l, t;
 	et_line* lines = (et_line*)_alloca(sizeof (et_line) * block_nof_lines);
-	memset(lines,0,sizeof (et_line) * block_nof_lines);
+	memset(lines, 0, sizeof (et_line) * block_nof_lines);
 
-	int new_buffer_size = sizeof (et_tabstop) * __max(1,block_nof_lines * max_tabs);
+	int new_buffer_size = sizeof (et_tabstop) * __max(1, block_nof_lines * max_tabs);
 	if (new_buffer_size > grid_buffer_size)
 	{
-		et_tabstop* new_buffer = (et_tabstop*)realloc(grid_buffer,new_buffer_size);
+		et_tabstop* new_buffer = (et_tabstop*)realloc(grid_buffer, new_buffer_size);
 		if (new_buffer == NULL)
 		{
 			return;
@@ -195,7 +195,7 @@ void stretch_tabstops(sptr_t edit, int block_start_linenum, int block_nof_lines,
 		grid_buffer = new_buffer;
 		grid_buffer_size = new_buffer_size;
 	}
-	memset(grid_buffer,0,new_buffer_size);
+	memset(grid_buffer, 0, new_buffer_size);
 
 	et_tabstop** grid = (et_tabstop**)_alloca(sizeof (et_tabstop*) * block_nof_lines);
 	for (l = 0; l < block_nof_lines; l++)
@@ -211,10 +211,10 @@ void stretch_tabstops(sptr_t edit, int block_start_linenum, int block_nof_lines,
 		int current_tab_num = 0;
 		bool cell_empty = true;
 
-		int current_pos = call_edit(edit,SCI_POSITIONFROMLINE,current_line_num);
+		int current_pos = call_edit(edit, SCI_POSITIONFROMLINE, current_line_num);
 		int cell_start = current_pos;
-		unsigned char current_char = (unsigned char)call_edit(edit,SCI_GETCHARAT,current_pos);
-		bool current_char_ends_line = is_line_end(edit,current_pos);
+		unsigned char current_char = (unsigned char)call_edit(edit, SCI_GETCHARAT, current_pos);
+		bool current_char_ends_line = is_line_end(edit, current_pos);
 		// maybe change this to search forwards for tabs/newlines
 
 		while (current_char != '\0')
@@ -229,7 +229,7 @@ void stretch_tabstops(sptr_t edit, int block_start_linenum, int block_nof_lines,
 			{
 				if (!cell_empty)
 				{
-					text_width_in_tab = get_text_width(edit,cell_start,current_pos);
+					text_width_in_tab = get_text_width(edit, cell_start, current_pos);
 				}
 				grid[l][current_tab_num].ends_in_tab = true;
 				grid[l][current_tab_num].text_width_pix = calc_tab_width(text_width_in_tab);
@@ -246,9 +246,9 @@ void stretch_tabstops(sptr_t edit, int block_start_linenum, int block_nof_lines,
 					cell_empty = false;
 				}
 			}
-			current_pos = call_edit(edit,SCI_POSITIONAFTER,current_pos);
-			current_char = (unsigned char)call_edit(edit,SCI_GETCHARAT,current_pos);
-			current_char_ends_line = is_line_end(edit,current_pos);
+			current_pos = call_edit(edit, SCI_POSITIONAFTER, current_pos);
+			current_char = (unsigned char)call_edit(edit, SCI_GETCHARAT, current_pos);
+			current_char_ends_line = is_line_end(edit, current_pos);
 		}
 	}
 
@@ -306,20 +306,20 @@ void stretch_tabstops(sptr_t edit, int block_start_linenum, int block_nof_lines,
 			}
 		}
 
-		call_edit(edit,SCI_SETTABSTOPS,current_line_num,(LONG_PTR)&(tab_array.at(0)));
+		call_edit(edit, SCI_SETTABSTOPS, current_line_num, (LONG_PTR)&(tab_array.at(0)));
 	}
 }
 
 void ElasticTabstops_OnModify(sptr_t edit, int start, int end)
 {
-	int max_tabs_between = get_nof_tabs_between(edit,start,end);
-	int max_tabs_backwards = get_block_boundary(edit,start,BACKWARDS);
-	int max_tabs_forwards = get_block_boundary(edit,end,FORWARDS);
-	int max_tabs = __max(__max(max_tabs_between,max_tabs_backwards),max_tabs_forwards);
+	int max_tabs_between = get_nof_tabs_between(edit, start, end);
+	int max_tabs_backwards = get_block_boundary(edit, start, BACKWARDS);
+	int max_tabs_forwards = get_block_boundary(edit, end, FORWARDS);
+	int max_tabs = __max(__max(max_tabs_between, max_tabs_backwards), max_tabs_forwards);
 
-	int block_start_linenum = call_edit(edit,SCI_LINEFROMPOSITION,start);
-	int block_end_linenum = call_edit(edit,SCI_LINEFROMPOSITION,end);
+	int block_start_linenum = call_edit(edit, SCI_LINEFROMPOSITION, start);
+	int block_end_linenum = call_edit(edit, SCI_LINEFROMPOSITION, end);
 	int block_nof_lines = (block_end_linenum - block_start_linenum) + 1;
 
-	stretch_tabstops(edit,block_start_linenum,block_nof_lines,max_tabs);
+	stretch_tabstops(edit, block_start_linenum, block_nof_lines, max_tabs);
 }

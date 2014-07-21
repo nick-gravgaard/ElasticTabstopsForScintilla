@@ -23,13 +23,13 @@ END_MESSAGE_MAP()
 void ElasticTabstopsEdit::Setup(void)
 {
 	// Listen for changes to the editor's document
-	SendMessage(SCI_SETMODEVENTMASK,SC_MOD_INSERTTEXT|SC_MOD_DELETETEXT);
+	SendMessage(SCI_SETMODEVENTMASK, SC_MOD_INSERTTEXT | SC_MOD_DELETETEXT);
 }
 
 void ElasticTabstopsEdit::SetText(const char* text)
 {
 	// Set the text in the editor
-	SendMessage(SCI_SETTEXT,0,(LPARAM)text);
+	SendMessage(SCI_SETTEXT, 0, (LPARAM)text);
 }
 
 void ElasticTabstopsEdit::OnModified(NMHDR* hdr, LRESULT*)
@@ -40,11 +40,11 @@ void ElasticTabstopsEdit::OnModified(NMHDR* hdr, LRESULT*)
 		SCNotification* notify = (SCNotification*)hdr;
 		if (notify->modificationType & SC_MOD_INSERTTEXT)
 		{
-			ElasticTabstops_OnModify(SendMessage(SCI_GETDIRECTPOINTER),notify->position,notify->position+notify->length);
+			ElasticTabstops_OnModify(SendMessage(SCI_GETDIRECTPOINTER), notify->position, notify->position + notify->length);
 		}
 		else if (notify->modificationType & SC_MOD_DELETETEXT)
 		{
-			ElasticTabstops_OnModify(SendMessage(SCI_GETDIRECTPOINTER),notify->position,notify->position);
+			ElasticTabstops_OnModify(SendMessage(SCI_GETDIRECTPOINTER), notify->position, notify->position);
 		}
 	}
 }
