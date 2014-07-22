@@ -174,7 +174,7 @@ class Editor : public DocWatcher {
 	Editor(const Editor &);
 	Editor &operator=(const Editor &);
 	PerLine* ldTabstops;
-	int NextTabstopPos(Document *pdoc, int line, int x, int tabWidth);
+	int NextTabstopPos(int line, int x, int tabWidth);
 
 protected:	// ScintillaBase subclass needs access to much of Editor
 

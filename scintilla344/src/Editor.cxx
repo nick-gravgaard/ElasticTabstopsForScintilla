@@ -2188,7 +2188,7 @@ LineLayout *Editor::RetrieveLineLayout(int lineNumber) {
 	        LinesOnScreen() + 1, pdoc->LinesTotal());
 }
 
-int Editor::NextTabstopPos(Document *pdoc, int line, int x, int tabWidth)
+int Editor::NextTabstopPos(int line, int x, int tabWidth)
 {
 	int next = this->GetNextTabstop(line, x);
 	if (next > 0)
@@ -2306,7 +2306,7 @@ void Editor::LayoutLine(int line, Surface *surface, const ViewStyle &vstyle, Lin
 						// Tab is a special case of representation, taking a variable amount of space
 						int x = static_cast<int>(ll->positions[ts.start]);
 						int tabWidth = static_cast<int>(vstyle.tabWidth);
-						representationWidth = static_cast<XYPOSITION>(NextTabstopPos(pdoc, line, x, tabWidth) - ll->positions[ts.start]);
+						representationWidth = static_cast<XYPOSITION>(NextTabstopPos(line, x, tabWidth) - ll->positions[ts.start]);
 					} else {
 						if (representationWidth <= 0.0) {
 							XYPOSITION positionsRepr[256];	// Should expand when needed

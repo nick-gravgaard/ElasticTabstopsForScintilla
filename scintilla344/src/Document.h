@@ -413,7 +413,6 @@ public:
 	int ParaDown(int pos) const;
 	int IndentSize() const { return actualIndentInChars; }
 	int BraceMatch(int position, int maxReStyle);
-	void NotifyModified(DocModification mh);
 
 private:
 	bool IsWordStartAt(int pos) const;
@@ -422,6 +421,7 @@ private:
 
 	void NotifyModifyAttempt();
 	void NotifySavePoint(bool atSavePoint);
+	void NotifyModified(DocModification mh);
 };
 
 class UndoGroup {
