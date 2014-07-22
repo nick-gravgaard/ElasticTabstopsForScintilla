@@ -333,7 +333,9 @@ typedef sptr_t (*SciFnDirect)(sptr_t ptr, unsigned int iMessage, uptr_t wParam, 
 #define SCI_COUNTCHARACTERS 2633
 #define SCI_SETHSCROLLBAR 2130
 #define SCI_GETHSCROLLBAR 2131
-#define SCI_SETTABSTOPS 2673
+#define SCI_CLEARTABSTOPS 2673
+#define SCI_ADDTABSTOP 2674
+#define SCI_GETNEXTTABSTOP 2675
 #define SC_IV_NONE 0
 #define SC_IV_REAL 1
 #define SC_IV_LOOKFORWARD 2

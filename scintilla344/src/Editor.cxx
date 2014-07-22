@@ -242,21 +242,25 @@ void Editor::Finalise() {
 	CancelModes();
 }
 
-void Editor::SetTabstops(int line, int *tabstops)
+void Editor::ClearTabstops(int line)
 {
-	int numTabstops = 0;
-	while (tabstops[numTabstops] != 0) {
-		numTabstops++;
-	}
-
 	LineTabstops *lt = static_cast<LineTabstops *>(ldTabstops);
-	if (lt->SetTabstops(line, tabstops, numTabstops)) {
+	if (lt && lt->ClearTabstops(line)) {
 		DocModification mh(SC_MOD_CHANGELINESTATE, 0, 0, 0, 0, line);
 		NotifyModified(pdoc, mh, NULL);
 	}
 }
 
-int Editor::GetTabstop(int line, int x)
+void Editor::AddTabstop(int line, int x)
+{
+	LineTabstops *lt = static_cast<LineTabstops *>(ldTabstops);
+	if (lt && lt->AddTabstop(line, x)) {
+		DocModification mh(SC_MOD_CHANGELINESTATE, 0, 0, 0, 0, line);
+		NotifyModified(pdoc, mh, NULL);
+	}
+}
+
+int Editor::GetNextTabstop(int line, int x)
 {
 	LineTabstops *lt = static_cast<LineTabstops *>(ldTabstops);
 	if (lt) {
@@ -2186,7 +2190,7 @@ LineLayout *Editor::RetrieveLineLayout(int lineNumber) {
 
 int Editor::NextTabstopPos(Document *pdoc, int line, int x, int tabWidth)
 {
-	int next = this->GetTabstop(line, x);
+	int next = this->GetNextTabstop(line, x);
 	if (next > 0)
 		return next;
 	return ((((x + 2) / tabWidth) + 1) * tabWidth);
@@ -9685,9 +9689,16 @@ sptr_t Editor::WndProc(unsigned int iMessage, uptr_t wParam, sptr_t lParam) {
 	case SCI_COUNTCHARACTERS:
 		return pdoc->CountCharacters(static_cast<int>(wParam), static_cast<int>(lParam));
 
-	case SCI_SETTABSTOPS:
-		this->SetTabstops(wParam, reinterpret_cast<int*>(lParam));
-		return 0l;
+	case SCI_CLEARTABSTOPS:
+		this->ClearTabstops(wParam);
+		break;
+
+	case SCI_ADDTABSTOP:
+		this->AddTabstop(wParam, lParam);
+		break;
+
+	case SCI_GETNEXTTABSTOP:
+		return this->GetNextTabstop(wParam, lParam);
 
 	default:
 		return DefWndProc(iMessage, wParam, lParam);

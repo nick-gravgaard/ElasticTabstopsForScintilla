@@ -282,31 +282,26 @@ void stretch_tabstops(sptr_t edit, int block_start_linenum, int block_nof_lines,
 		}
 	}
 
-	std::vector<int> tab_array;
-
 	// set tabstops
 	for (l = 0; l < block_nof_lines; l++) // for each line
 	{
 		int current_line_num = block_start_linenum + l;
 		int acc_tabstop = 0;
 
-		tab_array.resize(lines[l].num_tabs + 1);
-		tab_array[lines[l].num_tabs] = 0;
+		call_edit(edit, SCI_CLEARTABSTOPS, current_line_num);
 
 		for (t = 0; t < lines[l].num_tabs; t++)
 		{
 			if (grid[l][t].widest_width_pix != NULL)
 			{
 				acc_tabstop += *(grid[l][t].widest_width_pix);
-				tab_array[t] = acc_tabstop;
+				call_edit(edit, SCI_ADDTABSTOP, current_line_num, acc_tabstop);
 			}
 			else
 			{
-				tab_array[t] = 0;
+				break;
 			}
 		}
-
-		call_edit(edit, SCI_SETTABSTOPS, current_line_num, (LONG_PTR)&(tab_array.at(0)));
 	}
 }
 

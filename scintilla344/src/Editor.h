@@ -650,8 +650,9 @@ public:
 	int errorStatus;
 	friend class AutoSurface;
 	friend class SelectionLineIterator;
-	void SetTabstops(int line, int *tabstops);
-	int GetTabstop(int line, int x);
+	void ClearTabstops(int line);
+	void AddTabstop(int line, int x);
+	int GetNextTabstop(int line, int x);
 };
 
 /**

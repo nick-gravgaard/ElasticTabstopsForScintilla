@@ -510,7 +510,18 @@ void LineTabstops::RemoveLine(int line) {
 	}
 }
 
-bool LineTabstops::AddTabstops(int line, int newTabstops[], int numNewTabstops){
+bool LineTabstops::ClearTabstops(int line) {
+	if (line < tabstops.Length()) {
+		TabstopList *tl = tabstops[line];
+		if (tl) {
+			tl->clear();
+			return true;
+		}
+	}
+	return false;
+}
+
+bool LineTabstops::AddTabstop(int line, int x) {
 	tabstops.EnsureLength(line + 1);
 	if (!tabstops[line]) {
 		tabstops[line] = new TabstopList();
@@ -518,78 +529,14 @@ bool LineTabstops::AddTabstops(int line, int newTabstops[], int numNewTabstops){
 
 	TabstopList *tl = tabstops[line];
 	if (tl) {
-		// Are the new tabstops the same as the old ones?
-		if (numNewTabstops == tl->size()) {
-			bool same = true;
-			for (int i = 0; i < numNewTabstops; i++) {
-				if (tl->at(i) != newTabstops[i]) {
-					same = false;
-				}
-			}
-			if (same) {
-				return false;
-			}
-		}
-
-		// Resize the array of tabstops
-		if (numNewTabstops != tl->size()) {
-			tl->resize(numNewTabstops);
-		}
-
-		// Set the new tabstop values
-		PLATFORM_ASSERT(tl->size() == numNewTabstops);
-		for (int i = 0; i < numNewTabstops; i++) {
-			tl->at(i) = newTabstops[i];
-		}
-	}
-	return true;
-}
-
-bool LineTabstops::ClearTabstops(int line){
-	if (line < tabstops.Length()) {
-		delete tabstops[line];
+		// tabstop positions are kept in order - insert in the right place
+		tl->insert(std::lower_bound(tl->begin(), tl->end(), x), x);
 		return true;
 	}
 	return false;
 }
 
-bool LineTabstops::SetTabstops(int line, int *newTabstops, int numNewTabstops) {
-	tabstops.EnsureLength(line + 1);
-	if (!tabstops[line]) {
-		tabstops[line] = new TabstopList();
-	}
-
-	TabstopList *tl = tabstops[line];
-	if (tl) {
-		// Are the new tabstops the same as the old ones?
-		if (numNewTabstops == tl->size()) {
-			bool same = true;
-			for (int i = 0; i < numNewTabstops; i++) {
-				if (tl->at(i) != newTabstops[i]) {
-					same = false;
-				}
-			}
-			if (same) {
-				return false;
-			}
-		}
-
-		// Resize the array of tabstops
-		if (numNewTabstops != tl->size()) {
-			tl->resize(numNewTabstops);
-		}
-
-		// Set the new tabstop values
-		PLATFORM_ASSERT(tl->size() == numNewTabstops);
-		for (int i = 0; i < numNewTabstops; i++) {
-			tl->at(i) = newTabstops[i];
-		}
-	}
-	return true;
-}
-
-int LineTabstops::GetNextTabstop(int line, int x)
-{
+int LineTabstops::GetNextTabstop(int line, int x) {
 	if (line < tabstops.Length()) {
 		TabstopList *tl = tabstops[line];
 		if (tl) {
