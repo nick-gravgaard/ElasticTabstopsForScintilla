@@ -530,8 +530,12 @@ bool LineTabstops::AddTabstop(int line, int x) {
 	TabstopList *tl = tabstops[line];
 	if (tl) {
 		// tabstop positions are kept in order - insert in the right place
-		tl->insert(std::lower_bound(tl->begin(), tl->end(), x), x);
-		return true;
+		std::vector<int>::iterator it = std::lower_bound(tl->begin(), tl->end(), x);
+		// don't insert duplicates
+		if (it == tl->end() || *it != x) {
+			tl->insert(it, x);
+			return true;
+		}
 	}
 	return false;
 }
