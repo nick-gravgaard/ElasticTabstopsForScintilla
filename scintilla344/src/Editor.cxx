@@ -246,7 +246,7 @@ void Editor::ClearTabstops(int line)
 {
 	LineTabstops *lt = static_cast<LineTabstops *>(ldTabstops);
 	if (lt && lt->ClearTabstops(line)) {
-		DocModification mh(SC_MOD_CHANGELINESTATE, 0, 0, 0, 0, line);
+		DocModification mh(SC_MOD_CHANGETABSTOPS, 0, 0, 0, 0, line);
 		NotifyModified(pdoc, mh, NULL);
 	}
 }
@@ -255,7 +255,7 @@ void Editor::AddTabstop(int line, int x)
 {
 	LineTabstops *lt = static_cast<LineTabstops *>(ldTabstops);
 	if (lt && lt->AddTabstop(line, x)) {
-		DocModification mh(SC_MOD_CHANGELINESTATE, 0, 0, 0, 0, line);
+		DocModification mh(SC_MOD_CHANGETABSTOPS, 0, 0, 0, 0, line);
 		NotifyModified(pdoc, mh, NULL);
 	}
 }
@@ -4679,6 +4679,10 @@ void Editor::NotifyModified(Document *, DocModification mh, void *) {
 			// Could check that change is before last visible line.
 			Redraw();
 		}
+	}
+	if (mh.modificationType & SC_MOD_CHANGETABSTOPS) {
+		// Ideally we should only redraw mh.line
+		Redraw();
 	}
 	if (mh.modificationType & SC_MOD_LEXERSTATE) {
 		if (paintState == painting) {
