@@ -9,6 +9,8 @@
 
 #include <afxwin.h>
 
+#include "SciLexer.h"
+
 #include "ElasticTabstopsEdit.h"
 #include "resource.h"
 
@@ -44,6 +46,11 @@ protected:
 		m_edit.Setup();
 		m_edit.SendMessage(SCI_SETWRAPMODE, 1);
 		m_edit.SetText(text);
+
+		// make C++ comments big and green
+		m_edit.SendMessage(SCI_SETLEXER, SCLEX_CPP);
+		m_edit.SendMessage(SCI_STYLESETSIZE, SCE_C_COMMENT, 14);
+		m_edit.SendMessage(SCI_STYLESETFORE, SCE_C_COMMENT, 0x008000);
 
 		return TRUE;
 	}
