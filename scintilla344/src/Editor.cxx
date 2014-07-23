@@ -4681,7 +4681,6 @@ void Editor::NotifyModified(Document *, DocModification mh, void *) {
 		}
 	}
 	if (mh.modificationType & SC_MOD_CHANGETABSTOPS) {
-		// Ideally we should only redraw mh.line
 		Redraw();
 	}
 	if (mh.modificationType & SC_MOD_LEXERSTATE) {
