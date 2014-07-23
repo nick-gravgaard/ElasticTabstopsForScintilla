@@ -4742,10 +4742,17 @@ void Editor::NotifyModified(Document *, DocModification mh, void *) {
 			int lineOfPos = pdoc->LineFromPosition(mh.position);
 			if (mh.position > pdoc->LineStart(lineOfPos))
 				lineOfPos++;	// Affecting subsequent lines
+			LineTabstops *lt = static_cast<LineTabstops *>(ldTabstops);
 			if (mh.linesAdded > 0) {
 				cs.InsertLines(lineOfPos, mh.linesAdded);
+				for (int line = lineOfPos; line < lineOfPos + mh.linesAdded; line++) {
+					lt->InsertLine(line);
+				}
 			} else {
 				cs.DeleteLines(lineOfPos, -mh.linesAdded);
+				for (int line = lineOfPos; line < lineOfPos + -mh.linesAdded; line++) {
+					lt->RemoveLine(line);
+				}
 			}
 		}
 		if (mh.modificationType & SC_MOD_CHANGEANNOTATION) {
