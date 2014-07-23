@@ -190,6 +190,7 @@ void stretch_tabstops(sptr_t edit, int block_start_linenum, int block_nof_lines,
 		et_tabstop* new_buffer = (et_tabstop*)realloc(grid_buffer, new_buffer_size);
 		if (new_buffer == NULL)
 		{
+			free(grid_buffer);
 			return;
 		}
 		grid_buffer = new_buffer;

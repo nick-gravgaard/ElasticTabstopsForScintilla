@@ -47,6 +47,8 @@ protected:
 		m_edit.SendMessage(SCI_SETWRAPMODE, 1);
 		m_edit.SetText(text);
 
+		free(text);
+
 		// make C++ comments big and green
 		m_edit.SendMessage(SCI_SETLEXER, SCLEX_CPP);
 		m_edit.SendMessage(SCI_STYLESETSIZE, SCE_C_COMMENT, 14);
