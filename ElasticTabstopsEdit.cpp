@@ -23,7 +23,7 @@ END_MESSAGE_MAP()
 void ElasticTabstopsEdit::Setup(void)
 {
 	// Listen for changes to the editor's document
-	SendMessage(SCI_SETMODEVENTMASK, SC_MOD_INSERTTEXT | SC_MOD_DELETETEXT);
+	SendMessage(SCI_SETMODEVENTMASK, SC_MOD_INSERTTEXT | SC_MOD_DELETETEXT | SC_MOD_CHANGESTYLE);
 }
 
 void ElasticTabstopsEdit::SetText(const char* text)
@@ -38,7 +38,7 @@ void ElasticTabstopsEdit::OnModified(NMHDR* hdr, LRESULT*)
 	{
 		// If text has been added or removed, update the tabstops
 		SCNotification* notify = (SCNotification*)hdr;
-		if (notify->modificationType & SC_MOD_INSERTTEXT)
+		if (notify->modificationType & (SC_MOD_INSERTTEXT | SC_MOD_CHANGESTYLE))
 		{
 			ElasticTabstops_OnModify(SendMessage(SCI_GETDIRECTPOINTER), notify->position, notify->position + notify->length);
 		}

@@ -77,7 +77,7 @@ int get_text_width(sptr_t edit, int start, int end)
 	range.lpstrText = (char*)_alloca(end-start + 1);
 	call_edit(edit, SCI_GETTEXTRANGE, 0, (sptr_t)&range);
 
-	LONG_PTR style = call_edit(edit, SCI_GETSTYLEAT, (LONG_PTR)range.lpstrText, 0);
+	LONG_PTR style = call_edit(edit, SCI_GETSTYLEAT, start);
 
 	return call_edit(edit, SCI_TEXTWIDTH, style, (LONG_PTR)range.lpstrText);
 }

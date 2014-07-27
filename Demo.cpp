@@ -32,26 +32,29 @@ protected:
 	{
 		CDialog::OnInitDialog();
 
+		m_edit.SubclassDlgItem(IDC_EDIT, this);
+		m_edit.Setup();
+		m_edit.SendMessage(SCI_SETWRAPMODE, 1);
+
 		HMODULE hModule = GetModuleHandle(NULL);
 		HRSRC hRes = FindResource(hModule, MAKEINTRESOURCE(IDR_TEXTFILE), L"BUFFER_CONTENTS");
 		HGLOBAL hMem = LoadResource(hModule, hRes);
 		DWORD size = SizeofResource(hModule, hRes);
-		char *res_text = (char*)LockResource(hMem);
-		char *text = (char*)malloc(size + 1);
+		char *res_text = (char*) LockResource(hMem);
+		char *text = (char*) malloc(size + 1);
 		memcpy(text, res_text, size);
 		text[size] = 0;
 		FreeResource(hMem);
-
-		m_edit.SubclassDlgItem(IDC_EDIT, this);
-		m_edit.Setup();
-		m_edit.SendMessage(SCI_SETWRAPMODE, 1);
 		m_edit.SetText(text);
-
 		free(text);
 
-		// make C++ comments big and green
+		// set default and C++ comment styles
+		m_edit.SendMessage(SCI_STYLESETFONT, STYLE_DEFAULT, reinterpret_cast<LPARAM>("verdana"));
+		m_edit.SendMessage(SCI_STYLESETSIZE, STYLE_DEFAULT, 8);
+		m_edit.SendMessage(SCI_STYLECLEARALL, 0, 0);
 		m_edit.SendMessage(SCI_SETLEXER, SCLEX_CPP);
-		m_edit.SendMessage(SCI_STYLESETSIZE, SCE_C_COMMENT, 14);
+		m_edit.SendMessage(SCI_STYLESETFONT, SCE_C_COMMENT, reinterpret_cast<LPARAM>("georgia"));
+		m_edit.SendMessage(SCI_STYLESETSIZE, SCE_C_COMMENT, 10);
 		m_edit.SendMessage(SCI_STYLESETFORE, SCE_C_COMMENT, 0x008000);
 
 		return TRUE;
