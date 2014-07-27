@@ -14,6 +14,8 @@
 // Function that calculates and sets the elastic tabstops
 void ElasticTabstops_OnModify(sptr_t edit, int start, int end);
 
+void exit_cleanly();
+
 IMPLEMENT_DYNAMIC(ElasticTabstopsEdit, CWnd)
 
 BEGIN_MESSAGE_MAP(ElasticTabstopsEdit, CWnd)
@@ -47,4 +49,9 @@ void ElasticTabstopsEdit::OnModified(NMHDR* hdr, LRESULT*)
 			ElasticTabstops_OnModify(SendMessage(SCI_GETDIRECTPOINTER), notify->position, notify->position);
 		}
 	}
+}
+
+void ElasticTabstopsEdit::CleanUp()
+{
+	exit_cleanly();
 }

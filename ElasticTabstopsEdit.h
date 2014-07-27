@@ -12,6 +12,7 @@ class ElasticTabstopsEdit : public CWnd
 public:
 	void Setup(void);
 	void SetText(const char* text);
+	void CleanUp();
 
 protected:
 	DECLARE_MESSAGE_MAP()

@@ -319,3 +319,8 @@ void ElasticTabstops_OnModify(sptr_t edit, int start, int end)
 
 	stretch_tabstops(edit, block_start_linenum, block_nof_lines, max_tabs);
 }
+
+void exit_cleanly()
+{
+	free(grid_buffer);
+}

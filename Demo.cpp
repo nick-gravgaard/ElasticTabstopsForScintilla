@@ -60,6 +60,12 @@ protected:
 		return TRUE;
 	}
 
+	void DemoDialog::PostNcDestroy()
+	{
+		m_edit.CleanUp();
+		CDialog::PostNcDestroy();
+	}
+
 	ElasticTabstopsEdit m_edit;
 };
 
