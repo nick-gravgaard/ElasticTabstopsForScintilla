@@ -4218,6 +4218,12 @@ void Editor::ClearAll() {
 			pdoc->MarginClearAll();
 		}
 	}
+
+	if (ldTabstops) {
+		delete ldTabstops;
+		ldTabstops = 0;
+	}
+
 	sel.Clear();
 	SetTopLine(0);
 	SetVerticalScrollPos();
@@ -6984,6 +6990,11 @@ void Editor::SetDocPointer(Document *document) {
 	SetAnnotationHeights(0, pdoc->LinesTotal());
 	llc.Deallocate();
 	NeedWrapping();
+
+	if (ldTabstops) {
+		delete ldTabstops;
+		ldTabstops = 0;
+	}
 
 	pdoc->AddWatcher(this, 0);
 	SetScrollBars();
