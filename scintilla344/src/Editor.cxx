@@ -207,7 +207,7 @@ Editor::Editor() {
 	willRedrawAll = false;
 
 	modEventMask = SC_MODEVENTMASKALL;
-	ldTabstops = new LineTabstops();
+	ldTabstops = 0;
 	pdoc = new Document();
 	pdoc->AddRef();
 	pdoc->AddWatcher(this, 0);
@@ -232,8 +232,10 @@ Editor::~Editor() {
 	pdoc->RemoveWatcher(this, 0);
 	pdoc->Release();
 	pdoc = 0;
-	delete ldTabstops;
-	ldTabstops = 0;
+	if (ldTabstops) {
+		delete ldTabstops;
+		ldTabstops = 0;
+	}
 	DropGraphics(true);
 }
 
@@ -253,6 +255,10 @@ void Editor::ClearTabstops(int line)
 
 void Editor::AddTabstop(int line, int x)
 {
+	if (!ldTabstops) {
+		ldTabstops = new LineTabstops();
+	}
+
 	LineTabstops *lt = static_cast<LineTabstops *>(ldTabstops);
 	if (lt && lt->AddTabstop(line, x)) {
 		DocModification mh(SC_MOD_CHANGETABSTOPS, 0, 0, 0, 0, line);
@@ -4744,13 +4750,17 @@ void Editor::NotifyModified(Document *, DocModification mh, void *) {
 			LineTabstops *lt = static_cast<LineTabstops *>(ldTabstops);
 			if (mh.linesAdded > 0) {
 				cs.InsertLines(lineOfPos, mh.linesAdded);
-				for (int line = lineOfPos; line < lineOfPos + mh.linesAdded; line++) {
-					lt->InsertLine(line);
+				if (lt) {
+					for (int line = lineOfPos; line < lineOfPos + mh.linesAdded; line++) {
+						lt->InsertLine(line);
+					}
 				}
 			} else {
 				cs.DeleteLines(lineOfPos, -mh.linesAdded);
-				for (int line = lineOfPos; line < lineOfPos + -mh.linesAdded; line++) {
-					lt->RemoveLine(line);
+				if (lt) {
+					for (int line = lineOfPos; line < lineOfPos + -mh.linesAdded; line++) {
+						lt->RemoveLine(line);
+					}
 				}
 			}
 		}
