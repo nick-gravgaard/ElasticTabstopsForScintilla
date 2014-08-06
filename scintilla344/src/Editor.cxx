@@ -4764,7 +4764,7 @@ void Editor::NotifyModified(Document *, DocModification mh, void *) {
 			} else {
 				cs.DeleteLines(lineOfPos, -mh.linesAdded);
 				if (lt) {
-					for (int line = lineOfPos; line < lineOfPos + -mh.linesAdded; line++) {
+					for (int line = (lineOfPos + -mh.linesAdded) - 1; line >= lineOfPos; line--) {
 						lt->RemoveLine(line);
 					}
 				}
