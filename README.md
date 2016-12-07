@@ -1,7 +1,7 @@
 # Elastic tabstops for Scintilla
 
 This is an implementation of elastic tabstops for Scintilla.
-It was originally ported by [David Kinder](http://www.davidkinder.co.uk/) from [an implementation for Gedit](http://nickgravgaard.com/elastic-tabstops/gedit/) by Nick Gravgaard.
+It was originally based on a port by [David Kinder](http://www.davidkinder.co.uk/) of [my old Gedit implementation](http://nickgravgaard.com/elastic-tabstops/gedit/).
 
 The work consisted of 2 main parts:
 * extending Scintilla's API to support explicit tabstop positions
